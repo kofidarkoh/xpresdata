@@ -20,6 +20,6 @@ Connect your Paystack Test Mode key: https://dashboard.paystack.com → Settings
 
 ## Edit
 
-- Seller + WhatsApp number: `data/config.ts`
+- Seller: `data/config.ts` (WhatsApp is fake icon only, no contact address shown)
 - Bundles/prices/networks: `data/bundles.ts`
 - Orders (demo in-memory store): `lib/orders.ts` — replace with a DB (Supabase/Postgres) for production. Fulfillment hook marked TODO in `app/api/verify/route.ts`.

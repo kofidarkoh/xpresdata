@@ -45,12 +45,26 @@ export default function CheckoutSheet({ bundle, onClose }: Props) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ bundleId: bundle!.id, phone }),
       });
-      const data = (await res.json()) as { authorization_url?: string; error?: string };
+      const data = (await res.json()) as { authorization_url?: string; reference?: string; error?: string };
       if (!res.ok || !data.authorization_url) {
         setError(data.error ?? "Failed to initialize payment. Please try again.");
         setLoading(false);
         return;
       }
+      try {
+        localStorage.setItem(
+          "xpresdata:lastOrder",
+          JSON.stringify({
+            reference: data.reference ?? "",
+            bundleId: bundle!.id,
+            network: bundle!.network,
+            volumeMB: bundle!.volumeMB,
+            phone,
+            amountGHS: bundle!.priceGHS,
+            savedAt: new Date().toISOString(),
+          })
+        );
+      } catch {}
       window.location.href = data.authorization_url;
     } catch {
       setError("Network error. Please try again.");

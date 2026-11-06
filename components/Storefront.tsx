@@ -3,10 +3,11 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { bundles, type Bundle, type Network } from "@/data/bundles";
-import { siteConfig, whatsappUrl } from "@/data/config";
+import { siteConfig } from "@/data/config";
 import Header from "./Header";
 import BundleCard from "./BundleCard";
 import CheckoutSheet from "./CheckoutSheet";
+import WhatsAppIcon from "./WhatsAppIcon";
 
 type Filter = "All" | Network;
 
@@ -39,7 +40,7 @@ export default function Storefront() {
 
       <section className="hero">
         <div className="hero-top">
-          <div className="avatar">E</div>
+          <div className="avatar">X</div>
           <div>
             <h1>{siteConfig.sellerName}</h1>
             <div className="role">✓ {siteConfig.tagline}</div>
@@ -47,9 +48,9 @@ export default function Storefront() {
         </div>
         <p className="pitch">{siteConfig.pitch}</p>
         <div className="hero-actions">
-          <a href={whatsappUrl()} target="_blank" rel="noopener noreferrer" className="hero-btn">
-            💬 {siteConfig.whatsappDisplay}
-          </a>
+          <span className="hero-btn fake-icon" aria-label="Contact us" role="img">
+            <WhatsAppIcon size={16} />
+          </span>
           <Link href="/track-order" className="hero-btn">
             Track order
           </Link>
@@ -122,6 +123,9 @@ export default function Storefront() {
       <footer className="footer">
         <div>
           <Link href="/track-order">Track order</Link>
+          <span className="contact-link fake-icon" aria-label="Contact us" role="img">
+            <WhatsAppIcon size={15} />
+          </span>
           <span>© 2026 {siteConfig.siteName}</span>
         </div>
         <div>🔒 Secured by Paystack</div>
