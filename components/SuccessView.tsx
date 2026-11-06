@@ -42,8 +42,13 @@ function Inner() {
   const amountLabel =
     typeof order?.amountGHS === "number" ? ghs(order.amountGHS) : null;
 
-  const onCopy = () => {
-    if (reference) navigator.clipboard?.writeText(reference);
+  const onCopy = async () => {
+    if (!reference) return;
+    try {
+      await navigator.clipboard.writeText(reference);
+    } catch {
+      // Fallback for non-HTTPS / permissions (ignore silently)
+    }
   };
 
   return (

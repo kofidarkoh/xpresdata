@@ -31,10 +31,13 @@ export async function initializeTransaction(params: {
     body: JSON.stringify({
       amount: params.amountPesewas,
       email: params.email,
+      currency: "GHS",
       reference: params.reference,
       callback_url: params.callbackUrl,
       metadata: params.metadata,
     }),
+    // Avoid hanging the serverless function if Paystack stalls
+    signal: AbortSignal.timeout(10000),
   });
   const data = (await res.json()) as {
     status: boolean;
@@ -61,7 +64,10 @@ export async function verifyTransaction(reference: string): Promise<VerifyResult
   if (!secret) throw new Error("PAYSTACK_SECRET_KEY is not configured");
   const res = await fetch(
     `https://api.paystack.co/transaction/verify/${encodeURIComponent(reference)}`,
-    { headers: { Authorization: `Bearer ${secret}` } }
+    {
+      headers: { Authorization: `Bearer ${secret}` },
+      signal: AbortSignal.timeout(10000),
+    }
   );
   const data = (await res.json()) as { status: boolean; message?: string; data?: VerifyResult };
   if (!res.ok || !data.status || !data.data) {

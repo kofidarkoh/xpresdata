@@ -15,11 +15,12 @@ export default function CheckoutSheet({ bundle, onClose }: Props) {
 
   // Lock scroll + Esc to close
   useEffect(() => {
+    const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
     document.addEventListener("keydown", onKey);
     return () => {
-      document.body.style.overflow = "auto";
+      document.body.style.overflow = prevOverflow;
       document.removeEventListener("keydown", onKey);
     };
   }, [onClose]);

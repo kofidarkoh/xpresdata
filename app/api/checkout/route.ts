@@ -4,8 +4,14 @@ import { createOrder } from "@/lib/orders";
 import { initializeTransaction, paystackConfigured } from "@/lib/paystack";
 
 export async function POST(req: Request) {
+  let body: { bundleId?: string; phone?: string };
   try {
-    const body = (await req.json()) as { bundleId?: string; phone?: string };
+    body = (await req.json()) as { bundleId?: string; phone?: string };
+  } catch {
+    return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
+  }
+
+  try {
     const bundleId = String(body.bundleId ?? "");
     const phone = String(body.phone ?? "").replace(/\D/g, "");
 
@@ -23,8 +29,9 @@ export async function POST(req: Request) {
     }
 
     const amountPesewas = Math.round(bundle.priceGHS * 100);
-    const reference = `EXP-${Date.now().toString(36).toUpperCase()}-${Math.random().toString(36).slice(2, 6).toUpperCase()}`;
-    const origin = new URL(req.url).origin;
+    const reference = `XD-${Date.now().toString(36).toUpperCase()}-${Math.random().toString(36).slice(2, 6).toUpperCase()}`;
+    const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? "").replace(/\/+$/, "");
+    const origin = siteUrl || new URL(req.url).origin;
     const callbackUrl = `${origin}/success?reference=${encodeURIComponent(reference)}`;
     const email = `${phone}@xpresdata.com`;
 

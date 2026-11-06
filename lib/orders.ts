@@ -1,5 +1,7 @@
-// Simple in-memory order store for demo.
-// Swap with a real DB (Supabase/Postgres) in production.
+// In-memory order store (demo only).
+// On Vercel each serverless instance has its own Map — orders will NOT be
+// found on verify/track after redeploy/cold start. The verify route falls
+// back to Paystack; for reliable tracking swap with a DB (Supabase/Postgres).
 export type OrderStatus = "pending" | "paid" | "delivered" | "failed";
 
 export interface Order {

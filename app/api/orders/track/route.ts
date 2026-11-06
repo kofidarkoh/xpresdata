@@ -10,7 +10,8 @@ export async function GET(req: Request) {
   if (byRef) return NextResponse.json({ orders: [byRef] });
 
   const digits = q.replace(/\D/g, "");
-  if (digits.length >= 7) {
+  // Require full 10-digit Ghana numbers to avoid leaking partial matches
+  if (digits.length === 10) {
     const orders = findByPhone(digits);
     return NextResponse.json({ orders });
   }

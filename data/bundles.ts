@@ -31,7 +31,10 @@ export function getBundle(id: string): Bundle | undefined {
 }
 
 export function formatVolume(mb: number): string {
-  if (mb >= 1000) return `${(mb / 1000).toFixed(2)} GB`;
+  if (mb >= 1000) {
+    const gb = mb / 1000;
+    return `${Number.isInteger(gb) ? gb : gb.toFixed(2).replace(/0+$/, "").replace(/\.$/, "")} GB`;
+  }
   return `${mb} MB`;
 }
 
