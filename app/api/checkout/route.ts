@@ -26,14 +26,14 @@ export async function POST(req: Request) {
     const reference = `EXP-${Date.now().toString(36).toUpperCase()}-${Math.random().toString(36).slice(2, 6).toUpperCase()}`;
     const origin = new URL(req.url).origin;
     const callbackUrl = `${origin}/success?reference=${encodeURIComponent(reference)}`;
-    const email = `${phone}@expressdata.local`;
+    const email = `${phone}@xpresdata.com`;
 
     const init = await initializeTransaction({
       amountPesewas,
       email,
       reference,
       callbackUrl,
-      metadata: { bundleId: bundle.id, phone, site: "ExpressData" },
+      metadata: { bundleId: bundle.id, phone, site: "XpresData" },
     });
 
     createOrder({

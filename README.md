@@ -1,4 +1,4 @@
-# ExpressData
+# XpresData
 
 Modern data-bundle storefront (Next.js App Router + Paystack) — inspired by the SprintData buyer page.
 

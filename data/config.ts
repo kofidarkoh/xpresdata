@@ -1,7 +1,7 @@
-// ExpressData site config — edit seller details here
+// XpresData site config — edit seller details here
 export const siteConfig = {
-  siteName: "ExpressData",
-  sellerName: "ExpressData",
+  siteName: "XpresData",
+  sellerName: "XpresData",
   tagline: "Verified data reseller",
   pitch:
     "Fast, reliable data bundles delivered straight to your phone. Pay with mobile money, get your data in under 30 seconds. Any issue? Message me directly.",
